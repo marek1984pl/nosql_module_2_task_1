@@ -1,16 +1,19 @@
 package com.epam.jmp.redislab.service;
 
 import com.epam.jmp.redislab.configuration.ratelimit.RateLimitRule;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
+import redis.clients.jedis.JedisCluster;
 
-import java.util.List;
+import java.util.Set;
 
-@Component
-public class JedisRateLimitService implements RateLimitService{
+@Service
+public class JedisRateLimitService implements RateLimitService {
 
-    private final List<RateLimitRule> rateLimitRules;
+    private final Set<RateLimitRule> rateLimitRules;
+    private final JedisCluster jedisCluster;
 
-    public JedisRateLimitService(List<RateLimitRule> rateLimitRules) {
+    public JedisRateLimitService(Set<RateLimitRule> rateLimitRules, JedisCluster jedisCluster) {
         this.rateLimitRules = rateLimitRules;
+        this.jedisCluster = jedisCluster;
     }
 }
